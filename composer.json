@@ -1,0 +1,29 @@
+{
+    "name": "publib/RedcartClient",
+    "type": "library",
+    "description": "Public library RedcartClient - PHP Redcart Api Client - easy objective way to use redcart api",
+    "keywords": ["redcart", "api", "client", "oop"],
+    "license": "MIT",
+    "version" : "1.0.0-alpha",
+    "require": {
+        "guzzle/guzzle": "~3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {"RedcartClient": "lib/"}
+    },
+    "config": {
+        "vendor-dir": "vendor/",
+        "bin-dir": "bin"
+    },
+    "minimum-stability" : "dev",
+    "authors": [
+        {
+            "name": "Tomasz Ziółkowski",
+            "email": "tomasz.ziolkowski@g.pl",
+            "role": "Developer"
+        }
+    ]
+}
