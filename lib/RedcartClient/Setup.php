@@ -19,11 +19,8 @@ class Setup {
      */
     public static function getRedcart($apiKey, $https = false)
     {
-        $moduleLocator = new ModuleLocator();
-        return new Redcart($moduleLocator->getAllSupportedModules(
-            self::getClient($apiKey, $https),
-            new RawToResourceMapper())
-        );
+        $moduleLocator = new ModuleLocator(self::getClient($apiKey, $https), new RawToResourceMapper());
+        return new Redcart($moduleLocator->getAllSupportedModules());
     }
 
     public static function getClient($apiKey, $https = false)

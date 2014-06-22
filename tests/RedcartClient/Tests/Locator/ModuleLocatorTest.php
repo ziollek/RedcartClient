@@ -31,8 +31,8 @@ class ModuleLocatorTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
 
-        $moduleLocator = new ModuleLocator();
-        $modules = $moduleLocator->getAllSupportedModules($clientMock, new RawToResourceMapper());
+        $moduleLocator = new ModuleLocator($clientMock, new RawToResourceMapper());
+        $modules = $moduleLocator->getAllSupportedModules();
 
         $modulesNames = array();
         foreach ($modules as $module) {
