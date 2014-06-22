@@ -35,7 +35,7 @@ abstract class CrudModule extends BaseModule {
     public function selectByIds($idsArray)
     {
         $postData = $this->getPostData('selectIds');
-        $idsKeyName = $this->getModuleUnderscoredName().'_id';
+        $idsKeyName = $this->getUnderscoreString($this->getPkField());
         $postData['parameters'] = array(
             $idsKeyName => $idsArray
         );
@@ -140,7 +140,7 @@ abstract class CrudModule extends BaseModule {
 
         if (count($toDelete) > 0) {
             $postData = $this->getPostData('delete');
-            $idsKeyName = $this->getModuleUnderscoredName().'_id';
+            $idsKeyName = $this->getUnderscoreString($this->getPkField());
             $postData['parameters'] = array($idsKeyName => $toDelete);
 
             $response = $this->client->call($postData);
