@@ -57,6 +57,6 @@ class RawToResourceMapper {
      */
     private function getSetterName($name)
     {
-        return 'set'.ucfirst(preg_replace('/(_)([a-z0-9])/e', 'strtoupper($2)', $name));
+        return 'set'.ucfirst(preg_replace_callback('/(_)([a-z0-9])/', function($match) { return strtoupper($match[2]);}, $name));
     }
 }
