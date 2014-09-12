@@ -122,7 +122,7 @@ class CrudModuleTest extends \PHPUnit_Framework_TestCase {
                         'module' => 'crud',
                         'method' => 'selectIds',
                         'parameters' => array(
-                            'crud_id' => $ids
+                            'id' => $ids
                         )
                     )
                 ))
@@ -261,7 +261,7 @@ class CrudModuleTest extends \PHPUnit_Framework_TestCase {
                         'module' => 'crud',
                         'method' => 'delete',
                         'parameters' => array(
-                            'crud_id' => $crudIds
+                            'id' => $crudIds
                         )
                     )
                 ))
