@@ -4,6 +4,7 @@ namespace RedcartClient\Tests\Modules;
 
 use RedcartClient\Api\Client;
 use RedcartClient\Mapper\RawToResourceMapper;
+use RedcartClient\Tests\Stub\MultiFieldPKResource;
 use RedcartClient\Tests\Stub\SampleResource;
 
 class CrudModuleTest extends \PHPUnit_Framework_TestCase {
@@ -33,18 +34,29 @@ class CrudModuleTest extends \PHPUnit_Framework_TestCase {
 
         $firstResourceAdded = $this->getSampleResource(666, 'item');
         $secondResourceAdded = $this->getSampleResource(777, 'item');
+        $multiFieldPKAdded = $this->getSampleResource(1, 'item', false);
+
         return array(
             array(
                 $this->getSampleResource(1, 'item', false),
                 array(666),
+                false,
                 array(array('name' => 'item')),
                 $firstResourceAdded
             ),
             array(
                 array($this->getSampleResource(1, 'item', false), $this->getSampleResource(2, 'item', false), $emptyResource),
                 array(666, 777),
+                false,
                 array(array('name' => 'item'), array('name' => 'item')),
                 array($firstResourceAdded, $secondResourceAdded)
+            ),
+            array(
+                array($multiFieldPKAdded),
+                array(),
+                false,
+                array(array('name' => 'item')),
+                array($multiFieldPKAdded)
             )
         );
     }
@@ -183,13 +195,14 @@ class CrudModuleTest extends \PHPUnit_Framework_TestCase {
     /**
      * @param mixed $input
      * @param array $resultIds
+     * @param bool  $multiFieldPK
      * @param array $expectedCallData
      * @param array $expectedOutput
      *
      * @test
      * @dataProvider possibleAddInputVariants
      */
-    public function shouldAddResources($input, $resultIds, $expectedCallData, $expectedOutput)
+    public function shouldAddResources($input, $resultIds, $multiFieldPK, $expectedCallData, $expectedOutput)
     {
         $options = array('test_option' => 1);
         $clientMock = $this->getClientMock();
@@ -206,7 +219,7 @@ class CrudModuleTest extends \PHPUnit_Framework_TestCase {
                 ))
             ->will($this->returnValue(array('id' => $resultIds)));
 
-        $module = new \RedcartClient\Tests\Stub\Sample\Crud\Module($clientMock);
+        $module = new \RedcartClient\Tests\Stub\Sample\Crud\Module($clientMock, $multiFieldPK);
 
         $this->assertEquals($expectedOutput, $module->add($input, $options));
     }

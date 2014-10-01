@@ -2,14 +2,32 @@
 
 namespace RedcartClient\Modules;
 
+use RedcartClient\Api\Client;
 use RedcartClient\Mapper\RawToResourceMapper;
 
 abstract class CrudModule extends BaseModule {
+
+
 
     /**
      * @var RawToResourceMapper
      */
     private $rawToResourceMapper;
+
+    /**
+     * @var bool
+     */
+    private $multiFieldPrimary;
+
+    /**
+     * @param Client $client
+     * @param bool $multiFieldPrimary
+     */
+    public function __construct(Client $client, $multiFieldPrimary = false)
+    {
+        $this->multiFieldPrimary = $multiFieldPrimary;
+        parent::__construct($client);
+    }
 
     /**
      * @param \RedcartClient\Mapper\RawToResourceMapper $rawToResourceMapper
@@ -83,9 +101,12 @@ abstract class CrudModule extends BaseModule {
             $postData['parameters'] = $data;
             $postData['options'] = $options;
             $result = $this->client->call($postData);
-            foreach ($result[$this->getUnderscoreString($this->getPkField())] as $no => $id) {
-                $resultCollection[$no]->{'set' . ucfirst($this->getPkField())}($id);
-                $resultCollection[$no]->clearDirty();
+            if (!$this->multiFieldPrimary) {
+                foreach ($result[$this->getUnderscoreString($this->getPkField())] as $no => $id) {
+
+                    $resultCollection[$no]->{'set' . ucfirst($this->getPkField())}($id);
+                    $resultCollection[$no]->clearDirty();
+                }
             }
         }
 

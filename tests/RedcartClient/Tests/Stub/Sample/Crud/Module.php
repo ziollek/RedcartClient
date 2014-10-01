@@ -6,6 +6,7 @@ use RedcartClient\Modules\CrudModule;
 
 class Module extends CrudModule {
 
+
     /**
      * @return string
      */
