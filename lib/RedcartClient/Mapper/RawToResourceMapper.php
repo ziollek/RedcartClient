@@ -40,7 +40,9 @@ class RawToResourceMapper {
             $setter = $this->getSetterName($field);
 
             if (!is_callable(array($resource, $setter))) {
-                throw new \RuntimeException('Cannot set unknown field: ' . $field);
+                throw new \RuntimeException(
+                    'Cannot set unknown field: ' . $field . ' of resource '.get_class($resource)
+                );
             }
             $resource->{$setter}($value);
         }

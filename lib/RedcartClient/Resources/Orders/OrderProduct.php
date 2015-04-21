@@ -67,6 +67,11 @@ class OrderProduct extends Resource {
     private $basePrice;
 
     /**
+     * @var string
+     */
+    private $options;
+
+    /**
      * @return float
      */
     public function getBasePrice()
@@ -161,6 +166,15 @@ class OrderProduct extends Resource {
     {
         return $this->profit;
     }
+
+    /**
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
 
     /**
      * @param float $basePrice
@@ -269,5 +283,16 @@ class OrderProduct extends Resource {
         $this->updateState();
         $this->ordersId = $ordersId;
     }
+
+    /**
+     * @param string $options
+     */
+    public function setOptions($options)
+    {
+        $this->updateState();
+        $this->options = $options;
+    }
+
+
 
 }
