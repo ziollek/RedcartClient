@@ -157,6 +157,12 @@ class Order extends Resource {
      */
     private $currencyName;
 
+
+    /**
+     * @var float
+     */
+    private $currencyValue;
+
     /**
      * @var string
      */
@@ -703,6 +709,14 @@ class Order extends Resource {
     }
 
     /**
+     * @return float
+     */
+    public function getCurrencyValue()
+    {
+        return $this->currencyValue;
+    }
+
+    /**
      * @return string
      */
     public function getLangCode()
@@ -861,6 +875,15 @@ class Order extends Resource {
     {
         $this->updateState();
         $this->currencyName = $currencyName;
+    }
+
+    /**
+     * @param float $currencyValue
+     */
+    public function setCurrencyValue($currencyValue)
+    {
+        $this->updateState();
+        $this->currencyValue = $currencyValue;
     }
 
     /**
